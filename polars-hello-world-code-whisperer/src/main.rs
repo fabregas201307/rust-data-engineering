@@ -5,7 +5,9 @@ use polars::prelude::*;
 
 pub fn calculate() -> Result<DataFrame, PolarsError> {
     // Read the CSV data using CsvReader
-    let df = CsvReader::new("data/iris.csv")
+    let file = std::fs::File::open("data/iris.csv").unwrap();
+
+    let df = CsvReader::new(file)
         .has_header(true)
         .finish()?
         .lazy()
